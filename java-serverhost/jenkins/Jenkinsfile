@@ -1,0 +1,32 @@
+pipeline {
+    options {
+        // set a timeout of 60 minutes for this pipeline
+        timeout(time: 60, unit: 'MINUTES')
+    }
+    agent {
+      node {
+        label 'maven'
+      }
+    }
+
+    environment {
+        //TODO: Edit these vars as per your env
+        DEV_PROJECT = "youruser-books-dev"
+        STAGE_PROJECT = "youruser-books-stage"
+        APP_GIT_URL = "https://github.com/youruser/DO288-apps"
+        NEXUS_SERVER = "http://nexus-common.apps.cluster.domain.example.com/repository/nodejs"
+
+        // DO NOT CHANGE THE GLOBAL VARS BELOW THIS LINE
+        APP_NAME = "books"
+    }
+
+
+    stages {
+    stage 'build & deploy in dev'
+    echo 'Hello, Maven'
+    sh 'mvn --version'
+    echo 'project name ' ${DEV_PROJECT}
+  
+    stage 'deploy in test'
+  
+}
